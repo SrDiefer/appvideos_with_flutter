@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:manager_videos/config/helpers/formats.dart';
 import 'package:manager_videos/domain/entities/video_post.dart';
@@ -14,7 +15,12 @@ class VideoButtons extends StatelessWidget {
         const SizedBox(height: 20,),
         _CustomIconButton(value: video.views, iconData: Icons.remove_red_eye_outlined, ),
         const SizedBox(height: 20,),
-        _CustomIconButton(value: video.views, iconData: Icons.play_circle_outlined, ),
+        SpinPerfect(
+          infinite: true,
+          duration: const Duration(seconds: 5),
+          child: _CustomIconButton(value: 0, iconData: Icons.play_circle_outlined, ),
+        ),
+        
 
         
       ],
@@ -38,9 +44,12 @@ class _CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-          IconButton(onPressed: (){}, icon: Icon(iconData, color: color,size: 30,),),
+        IconButton(onPressed: (){},
+         icon: Icon(iconData, color: color, size: 30,)),
+         if(value > 0)
+        Text(Formats.formatsReadableNumber(value.toDouble()))
         // IconButton(onPressed: (){}, icon: Icon(Icons.favorite, color: Colors.red,)),
-        Text(Formats.FormatsReadableNumber(value.toDouble()))
+        // Text(Formats.FormatsReadableNumber(value.toDouble()))
       ],
       
     );
